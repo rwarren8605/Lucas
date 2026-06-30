@@ -1,0 +1,13 @@
+/* LUCAS Design System — global CSS entry point.
+   Consumers link THIS file. It is import-only by design; every token, font,
+   and base rule lives in a file reached from here.
+
+   Source of truth for tokens: components/fig-tokens.css is generated from the
+   Figma Variables (Primitives, Mode, Size collections) and carries the full
+   color system + light/dark mode scopes. The tokens/ files layer brand-
+   friendly aliases (px spacing/radius, typography scale, shadows) on top. */
+
+@import "./components/fig-tokens.css";
+@import "./tokens/typography.css";
+@import "./tokens/effects.css";
+@import "./tokens/base.css";

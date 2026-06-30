@@ -1,0 +1,58 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Core — Buttons, Chips, Badges" subtitle="Buttons, icon buttons, chips, status badges, cards" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { padding: 24px; background: var(--surface-background); }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 18px; }
+  .label { font-family: var(--font-ui); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--color-gray-500); margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, IconButton, Chip, Card, StatusBadge } = window.LUCASDesignSystem_675758;
+  function Demo() {
+    return (
+      <div>
+        <p className="label">Buttons</p>
+        <div className="row">
+          <Button type="primary">Access My Education</Button>
+          <Button type="secondary">Maybe Later</Button>
+          <Button type="tertiary">Start Module</Button>
+          <Button type="primary" disabled>Disabled</Button>
+          <Button type="primary" size="sm">Small</Button>
+        </div>
+        <p className="label">Icon buttons · Chips</p>
+        <div className="row">
+          <IconButton icon="arrow_back" type="secondary" />
+          <IconButton icon="close" type="primary" />
+          <IconButton icon="add" type="tertiary" />
+          <IconButton icon="bookmark" type="ghost" />
+          <Chip selected count={2} leadingIcon="settings">All Mail</Chip>
+          <Chip count={2}>Unread</Chip>
+          <Chip leadingIcon="flag">Flagged</Chip>
+        </div>
+        <p className="label">Status badges</p>
+        <div className="row">
+          <StatusBadge status="success">Done</StatusBadge>
+          <StatusBadge status="solidBrand">Start</StatusBadge>
+          <StatusBadge status="error">2 Attempts</StatusBadge>
+          <StatusBadge status="warning">In Review</StatusBadge>
+          <StatusBadge status="neutral" icon="lock">Locked</StatusBadge>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

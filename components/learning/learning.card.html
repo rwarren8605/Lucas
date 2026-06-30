@@ -1,0 +1,53 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Learning — Modules, Quiz, Stats" subtitle="Module rows, answer options, results scoreboard" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { padding: 24px; background: var(--surface-background); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: 10px; }
+  .label { font-family: var(--font-ui); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--color-gray-500); margin: 0 0 2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { ModuleItem, AnswerRow, StatRow, StatusBadge, Card } = window.LUCASDesignSystem_675758;
+  function Demo() {
+    return (
+      <div className="grid">
+        <div className="stack">
+          <p className="label">Module list</p>
+          <ModuleItem status="completed" title="Understanding Your Budget" meta="Module 1 · 12 Min" badge={<StatusBadge status="success">Done</StatusBadge>} />
+          <ModuleItem status="active" title="Your Credit Score" meta="Module 2 · 12 Min" badge={<StatusBadge status="solidBrand">Start</StatusBadge>} />
+          <ModuleItem status="locked" title="Closing Day" meta="Module 10 · 15 Min" badge={<StatusBadge status="neutral" icon="lock">Locked</StatusBadge>} />
+        </div>
+        <div className="stack">
+          <p className="label">Quiz answers</p>
+          <AnswerRow letter="A">Length of credit history (15%)</AnswerRow>
+          <AnswerRow state="correct">Payment history (35%)</AnswerRow>
+          <AnswerRow state="incorrect">Number of open cards</AnswerRow>
+          <p className="label">Results scoreboard</p>
+          <Card padding={16}>
+            <StatRow items={[
+              { label: "Total Time", value: "58 Min" },
+              { label: "Avg Score", value: "87%" },
+              { label: "Modules", value: "5/5" },
+            ]} />
+          </Card>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>
