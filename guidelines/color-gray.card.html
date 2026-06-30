@@ -1,0 +1,20 @@
+<!-- @dsCard group="Colors" viewport="700x140" name="Neutrals — Gray" subtitle="The gray scale, 50→900" -->
+<!DOCTYPE html><html><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin:0; padding:18px; background:var(--surface-elevated); font-family:var(--font-ui); }
+  .row { display:flex; gap:8px; }
+  .sw { flex:1; display:flex; flex-direction:column; gap:6px; }
+  .chip { height:56px; border-radius:10px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+  .name { font-size:11px; font-weight:600; color:var(--color-gray-700); }
+  .hex { font-size:10px; color:var(--color-gray-500); }
+</style></head><body>
+<div class="row" id="r"></div>
+<script>
+  const scale = [["50","--color-gray-50"],["100","--color-gray-100"],["200","--color-gray-200"],["300","--color-gray-300"],["400","--color-gray-400"],["500","--color-gray-500"],["600","--color-gray-600"],["700","--color-gray-700"],["800","--color-gray-800"],["900","--color-gray-900"]];
+  document.getElementById('r').innerHTML = scale.map(([n,v])=>{
+    const c = getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    return `<div class="sw"><div class="chip" style="background:${c}"></div><div class="name">gray/${n}</div><div class="hex">${c}</div></div>`;
+  }).join('');
+</script>
+</body></html>

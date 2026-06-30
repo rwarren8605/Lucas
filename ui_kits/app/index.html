@@ -1,0 +1,173 @@
+<!-- @dsCard group="App" viewport="430x720" name="LUCAS App — Interactive" subtitle="Onboarding → modules → quiz → certificate" -->
+<!-- @startingPoint section="App" subtitle="Full HBE app flow in an iPhone frame" viewport="430x880" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LUCAS — Home Buyer Education</title>
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin:0; background:var(--color-gray-200); font-family:var(--font-body); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 0; }
+  .phone { width:390px; height:auto; min-height:780px; background:var(--surface-primary); border-radius:46px; box-shadow:0 24px 70px rgba(0,0,0,0.28); overflow:hidden; position:relative; display:flex; flex-direction:column; box-sizing:border-box; outline:9px solid #0c0c0c; }
+  .screen { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .body { flex:1; overflow-y:auto; }
+  .body::-webkit-scrollbar { width:0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="Chrome.jsx" type="text/babel"></script>
+<script type="text/babel">
+const { Button, IconButton, Chip, Card, StatusBadge, Input, Callout, ProgressBar,
+        HeaderNav, MobileFooter, ModuleItem, AnswerRow, StatRow, LucasAvatar } = window.LUCASDesignSystem_675758;
+const LUCAS = "../../assets/lucas/";
+
+const MODULES = [
+  { title: "Understanding Your Budget", n: 1, status: "completed" },
+  { title: "Your Credit Score", n: 2, status: "completed" },
+  { title: "Saving for a Down Payment", n: 3, status: "completed" },
+  { title: "Getting Pre-Approved", n: 4, status: "active" },
+  { title: "Closing Day", n: 5, status: "locked" },
+];
+
+function Onboarding({ go }) {
+  return (
+    <div className="screen">
+      <StatusBar />
+      <div className="body" style={{ padding: "8px 24px 24px" }}>
+        <img src="../../assets/logo-light.svg" alt="LUCAS" style={{ height: 56, marginBottom: 24 }} />
+        <h1 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-.02em", margin: "0 0 4px" }}>Hey Robert,</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-.02em", margin: "0 0 12px" }}>let's get started</h1>
+        <p style={{ fontSize: 14, color: "var(--color-gray-600)", margin: "0 0 8px" }}>Your access code from the invite email is</p>
+        <span style={{ display: "inline-block", background: "var(--color-brand-500)", color: "#121212", fontWeight: 700, padding: "4px 10px", borderRadius: 8, fontSize: 15, marginBottom: 22 }}>LUC-8472-XK</span>
+        <Card padding={20} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div>
+            <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 2px" }}>Create a Password to Begin!</h2>
+            <p style={{ fontSize: 13, color: "var(--color-gray-500)", margin: 0 }}>Password must be strong and minimum 8 characters long.</p>
+          </div>
+          <Input label="Password" placeholder="Enter Password" type="password" />
+          <Input label="Confirm Password" placeholder="Enter Password" type="password" />
+          <Button type="primary" fullWidth onClick={go}>Access My Education</Button>
+          <p style={{ textAlign: "center", fontSize: 11, color: "var(--color-gray-400)", margin: 0 }}>Your information is encrypted and secure</p>
+        </Card>
+      </div>
+      <HomeIndicator />
+    </div>
+  );
+}
+
+function Home({ go }) {
+  const done = MODULES.filter(m => m.status === "completed").length;
+  return (
+    <div className="screen">
+      <StatusBar />
+      <HeaderNav title="Module 4 of 5" trailing={<IconButton icon="more_horiz" type="ghost" />} />
+      <div className="body" style={{ padding: "8px 16px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+        <Card tone="brand" padding={16} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <LucasAvatar mood="teacher" size={86} basePath={LUCAS} />
+          <div>
+            <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: "-.01em", lineHeight: 1.2 }}>Finish all modules to unlock closing</div>
+            <div style={{ display: "flex", gap: 14, marginTop: 8, fontSize: 12, fontWeight: 600 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span className="material-symbols-rounded" style={{ fontSize: 16 }}>menu_book</span>1 Module left</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span className="material-symbols-rounded" style={{ fontSize: 16 }}>schedule</span>12 Min</span>
+            </div>
+          </div>
+        </Card>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <span style={{ fontWeight: 600, fontSize: 15 }}>Completed {done} of 5</span>
+          </div>
+          <ProgressBar value={done} total={5} />
+        </div>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18 }}>Modules</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {MODULES.map(m => (
+            <ModuleItem key={m.n} status={m.status} title={m.title} meta={`Module ${m.n} · 12 Min`}
+              onClick={m.status !== "locked" ? go : undefined}
+              badge={m.status === "completed" ? <StatusBadge status="success">Done</StatusBadge>
+                : m.status === "active" ? <StatusBadge status="solidBrand">Start</StatusBadge>
+                : <StatusBadge status="neutral" icon="lock">Locked</StatusBadge>} />
+          ))}
+        </div>
+      </div>
+      <MobileFooter primary={<Button type="primary" fullWidth onClick={go}>Continue Module 4</Button>} />
+    </div>
+  );
+}
+
+function Quiz({ go }) {
+  const [picked, setPicked] = React.useState(null);
+  const answers = ["Length of credit history (15%)", "Payment history (35%)", "Credit utilization (30%)", "New credit inquiries (10%)"];
+  const correct = 1;
+  const graded = picked !== null;
+  return (
+    <div className="screen">
+      <StatusBar />
+      <HeaderNav title="Module 4 of 5" onBack={() => {}} />
+      <div className="body" style={{ padding: "8px 16px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+        <Card tone="brand" padding={16}>
+          <div style={{ fontSize: 19, fontWeight: 700, lineHeight: 1.25 }}>Which factor has the biggest impact on your credit score?</div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 4, marginTop: 10, fontSize: 12, fontWeight: 600 }}>
+            <span className="material-symbols-rounded" style={{ fontSize: 16 }}>help</span>Question 2 of 5</div>
+        </Card>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {answers.map((a, i) => (
+            <AnswerRow key={i} letter={String.fromCharCode(65 + i)}
+              state={!graded ? "default" : i === correct ? "correct" : i === picked ? "incorrect" : "default"}
+              onClick={() => !graded && setPicked(i)}>{a}</AnswerRow>
+          ))}
+        </div>
+        {graded && (picked === correct
+          ? <Callout status="correct" title="You've got it!">Payment history is the single biggest factor — paying on time is the best thing you can do for your score.</Callout>
+          : <Callout status="incorrect" title="Not Quite — 2 Attempts Remaining">Payment history (35%) is the single most important factor. Even one late payment can drop your score, especially during mortgage qualification.</Callout>)}
+      </div>
+      <MobileFooter primary={<Button type="primary" fullWidth onClick={graded ? go : undefined} disabled={!graded}>{graded ? "See My Results" : "Select an answer"}</Button>} />
+    </div>
+  );
+}
+
+function Results({ go }) {
+  return (
+    <div className="screen" style={{ background: "var(--color-brand-500)" }}>
+      <StatusBar tone="var(--color-brand-500)" />
+      <HeaderNav tone="brand" title="Module 5 of 5" onBack={() => {}} />
+      <div className="body" style={{ padding: "0 20px 20px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+        <LucasAvatar mood="success" size={150} basePath={LUCAS} style={{ marginTop: 6 }} />
+        <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: ".06em" }}>CONGRATULATIONS!!!</div>
+        <h1 style={{ fontSize: 38, fontWeight: 800, letterSpacing: "-.02em", margin: "2px 0 18px" }}>YOU DID IT</h1>
+        <Card padding={18} style={{ width: "100%" }}>
+          <StatRow items={[
+            { label: "Total Time", value: "58 Min" },
+            { label: "Avg Score", value: "87%" },
+            { label: "Modules", value: "5/5" },
+          ]} />
+          <div style={{ display: "flex", justifyContent: "center", gap: 18, marginTop: 14, fontSize: 12, color: "var(--color-gray-600)" }}>
+            <span style={{ display: "inline-flex", gap: 4, alignItems: "center" }}><span className="material-symbols-rounded" style={{ fontSize: 16 }}>menu_book</span>All 5 Modules Completed</span>
+            <span style={{ display: "inline-flex", gap: 4, alignItems: "center" }}><span className="material-symbols-rounded" style={{ fontSize: 16 }}>person</span>Robert Johnson</span>
+          </div>
+        </Card>
+      </div>
+      <MobileFooter style={{ background: "transparent", boxShadow: "none" }}
+        primary={<Button type="primary" fullWidth>Download Certificate</Button>}
+        secondary={<Button type="secondary" fullWidth onClick={go}>Back to Start</Button>} />
+    </div>
+  );
+}
+
+function App() {
+  const [screen, setScreen] = React.useState("onboarding");
+  const flow = { onboarding: "home", home: "quiz", quiz: "results", results: "onboarding" };
+  const go = () => setScreen(flow[screen]);
+  const View = { onboarding: Onboarding, home: Home, quiz: Quiz, results: Results }[screen];
+  return <div className="phone">{React.createElement(View, { go })}</div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+/* LUCAS — base element defaults. Kept minimal; tokens do the heavy lifting. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--surface-background);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings default to the display/headline stack */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: var(--type-headline-tracking);
+  margin: 0;
+}

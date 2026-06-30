@@ -1,0 +1,50 @@
+/* LUCAS — Spacing, radius, shadows & convenience tokens.
+   The generated fig-tokens.css ships the raw Figma Variables as UNITLESS
+   floats (e.g. --gap-md: 16). This file re-exposes the ones used most often
+   as ready-to-use px lengths, plus the soft elevation system. */
+
+:root {
+  /* Spacing scale (px) — 4pt grid */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 60px;
+
+  /* Corner radii (px) — LUCAS is soft & rounded everywhere */
+  --radius-2xs-px: 4px;   /* segmented control, tiny chips */
+  --radius-xs-px: 8px;    /* inputs, badges, status pills */
+  --radius-sm-px: 12px;   /* buttons, callouts, answer rows */
+  --radius-md-px: 16px;   /* cards */
+  --radius-lg-px: 20px;   /* large cards, sheets */
+  --radius-xl-px: 24px;   /* hero / banner cards */
+  --radius-pill: 999px;   /* chips, avatars, fully-round */
+
+  /* Elevation — gentle, low-contrast shadows. Nothing harsh. */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 2px 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.06);
+
+  /* Tinted glows for semantic surfaces */
+  --shadow-success: 2px 2px 12px rgba(27,155,51,0.10);
+  --shadow-error: 2px 2px 12px rgba(255,51,51,0.08);
+
+  /* Hairline borders */
+  --border-hairline: 0.5px;
+  --border-thin: 1px;
+
+  /* Layout */
+  --app-width: 390px;       /* iPhone design width */
+  --app-gutter: 16px;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}

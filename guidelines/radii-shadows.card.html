@@ -1,0 +1,29 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Radii & Shadows" subtitle="Soft corners + gentle elevation" -->
+<!DOCTYPE html><html><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin:0; padding:20px; background:var(--surface-background); font-family:var(--font-ui); }
+  .sec { font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--color-gray-500); margin:0 0 8px; }
+  .row { display:flex; gap:14px; margin-bottom:16px; flex-wrap:wrap; }
+  .sw { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .box { width:60px; height:48px; background:var(--surface-elevated); box-shadow: inset 0 0 0 1px var(--stroke-subtle); }
+  .n { font-size:10px; color:var(--color-gray-600); }
+  .shbox { width:80px; height:48px; background:var(--surface-elevated); border-radius:12px; }
+</style></head><body>
+<div class="sec">Corner radius</div>
+<div class="row">
+  <div class="sw"><div class="box" style="border-radius:4px"></div><div class="n">2xs · 4</div></div>
+  <div class="sw"><div class="box" style="border-radius:8px"></div><div class="n">xs · 8</div></div>
+  <div class="sw"><div class="box" style="border-radius:12px"></div><div class="n">sm · 12</div></div>
+  <div class="sw"><div class="box" style="border-radius:16px"></div><div class="n">md · 16</div></div>
+  <div class="sw"><div class="box" style="border-radius:20px"></div><div class="n">lg · 20</div></div>
+  <div class="sw"><div class="box" style="border-radius:999px"></div><div class="n">pill</div></div>
+</div>
+<div class="sec">Elevation</div>
+<div class="row">
+  <div class="sw"><div class="shbox" style="box-shadow:var(--shadow-xs)"></div><div class="n">xs</div></div>
+  <div class="sw"><div class="shbox" style="box-shadow:var(--shadow-sm)"></div><div class="n">sm</div></div>
+  <div class="sw"><div class="shbox" style="box-shadow:var(--shadow-card)"></div><div class="n">card</div></div>
+  <div class="sw"><div class="shbox" style="box-shadow:var(--shadow-lg)"></div><div class="n">lg</div></div>
+</div>
+</body></html>

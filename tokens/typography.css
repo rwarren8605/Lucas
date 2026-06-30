@@ -1,0 +1,57 @@
+/* LUCAS — Typography
+   Brand faces: Noto Sans (display, headings, buttons, UI labels) and Inter
+   (dense data / fine print). Loaded from Google Fonts. If you ship LUCAS in
+   production, self-host the .woff2 binaries and swap these @import lines for
+   local @font-face rules. */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Families */
+  --font-display: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Weights (mirror Figma weight tokens) */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Type scale — px values from the Figma text styles.
+     Display = big celebratory moments; Headline = screen + section titles;
+     Body = paragraphs; Label = UI chrome, fine print. */
+  --type-display-size: 36px;
+  --type-display-line: 40px;
+  --type-display-weight: 800;
+  --type-display-tracking: -0.02em;
+
+  --type-headline-xl-size: 32px;
+  --type-headline-xl-line: 38px;
+  --type-headline-lg-size: 24px;
+  --type-headline-lg-line: 30px;
+  --type-headline-md-size: 20px;
+  --type-headline-md-line: 26px;
+  --type-headline-weight: 700;
+  --type-headline-tracking: -0.015em;
+
+  --type-body-xl-size: 20px;
+  --type-body-xl-line: 28px;
+  --type-body-lg-size: 18px;
+  --type-body-lg-line: 26px;
+  --type-body-md-size: 16px;
+  --type-body-md-line: 24px;
+  --type-body-sm-size: 14px;
+  --type-body-sm-line: 20px;
+  --type-body-tracking: -0.007em;
+
+  --type-label-md-size: 14px;
+  --type-label-md-line: 20px;
+  --type-label-sm-size: 12px;
+  --type-label-sm-line: 16px;
+  --type-label-xs-size: 10px;
+  --type-label-xs-line: 14px;
+  --type-label-weight: 600;
+  --type-label-tracking: -0.007em;
+}

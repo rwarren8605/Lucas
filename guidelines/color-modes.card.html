@@ -1,0 +1,40 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Surface & Text — Light / Dark" subtitle="Mode-aware semantic tokens" -->
+<!DOCTYPE html><html><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin:0; padding:18px; background:var(--color-gray-200); font-family:var(--font-ui); }
+  .modes { display:flex; gap:14px; }
+  .mode { flex:1; border-radius:14px; padding:14px; }
+  .mode.light { background:#F1F1F1; }
+  .mode.dark { background:#121212; }
+  .ml { font-size:11px; font-weight:700; margin-bottom:10px; letter-spacing:.04em; text-transform:uppercase; }
+  .mode.light .ml { color:#606060; }
+  .mode.dark .ml { color:#929292; }
+  .stack { display:flex; flex-direction:column; gap:6px; }
+  .tok { display:flex; align-items:center; gap:8px; }
+  .box { width:30px; height:30px; border-radius:7px; box-shadow: inset 0 0 0 1px rgba(128,128,128,0.3); }
+  .lab { font-size:10px; }
+  .mode.light .lab { color:#414141; }
+  .mode.dark .lab { color:#DBDBDB; }
+</style></head><body>
+<div class="modes">
+  <div class="mode light">
+    <div class="ml">Light mode</div>
+    <div class="stack">
+      <div class="tok"><div class="box" style="background:#F9F9F9"></div><div class="lab">surface/primary</div></div>
+      <div class="tok"><div class="box" style="background:#FEFEFE"></div><div class="lab">surface/elevated</div></div>
+      <div class="tok"><div class="box" style="background:#F1F1F1"></div><div class="lab">surface/background</div></div>
+      <div class="tok"><div class="box" style="background:#121212"></div><div class="lab">text/primary</div></div>
+    </div>
+  </div>
+  <div class="mode dark">
+    <div class="ml">Dark mode</div>
+    <div class="stack">
+      <div class="tok"><div class="box" style="background:#121212"></div><div class="lab">surface/primary</div></div>
+      <div class="tok"><div class="box" style="background:#2C2C2C"></div><div class="lab">surface/elevated</div></div>
+      <div class="tok"><div class="box" style="background:#121212"></div><div class="lab">surface/background</div></div>
+      <div class="tok"><div class="box" style="background:#FEFEFE"></div><div class="lab">text/primary</div></div>
+    </div>
+  </div>
+</div>
+</body></html>
