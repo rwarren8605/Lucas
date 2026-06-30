@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUCAS Design System</title>
+<link rel="stylesheet" href="styles.css">
+<!-- ── standalone resource registry ── -->
+<meta name="ext-resource-dependency" content="assets/logo-light.svg" data-resource-id="logo_light" />
+<meta name="ext-resource-dependency" content="assets/logo-dark.svg" data-resource-id="logo_dark" />
+<meta name="ext-resource-dependency" content="assets/lucas/welcoming.png" data-resource-id="lucas_welcoming" />
+<meta name="ext-resource-dependency" content="assets/lucas/standard.png" data-resource-id="lucas_standard" />
+<meta name="ext-resource-dependency" content="assets/lucas/wave.png" data-resource-id="lucas_wave" />
+<meta name="ext-resource-dependency" content="assets/lucas/teacher.png" data-resource-id="lucas_teacher" />
+<meta name="ext-resource-dependency" content="assets/lucas/excited.png" data-resource-id="lucas_excited" />
+<meta name="ext-resource-dependency" content="assets/lucas/thinking.png" data-resource-id="lucas_thinking" />
+<meta name="ext-resource-dependency" content="assets/lucas/confused.png" data-resource-id="lucas_confused" />
+<meta name="ext-resource-dependency" content="assets/lucas/success.png" data-resource-id="lucas_success" />
+<meta name="ext-resource-dependency" content="assets/lucas/determined.png" data-resource-id="lucas_determined" />
+<meta name="ext-resource-dependency" content="assets/lucas/sad.png" data-resource-id="lucas_sad" />
+<meta name="ext-resource-dependency" content="assets/lucas/scared.png" data-resource-id="lucas_scared" />
+<meta name="ext-resource-dependency" content="assets/lucas/inviting.png" data-resource-id="lucas_inviting" />
+<meta name="ext-resource-dependency" content="assets/lucas/running.png" data-resource-id="lucas_running" />
+<meta name="ext-resource-dependency" content="assets/lucas/satisfied.png" data-resource-id="lucas_satisfied" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-01.png" data-resource-id="lucas_costume-01" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-02.png" data-resource-id="lucas_costume-02" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-03.png" data-resource-id="lucas_costume-03" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-04.png" data-resource-id="lucas_costume-04" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-05.png" data-resource-id="lucas_costume-05" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-06.png" data-resource-id="lucas_costume-06" />
+<meta name="ext-resource-dependency" content="assets/lucas/costume-07.png" data-resource-id="lucas_costume-07" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds_bundle.js"></script>
+<style>
+/* ── reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; background: var(--surface-background); color: var(--text-primary); }
+:root:not([data-theme="dark"]) body { background: rgb(249,249,249); }
+body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* ── layout vars ────────────────────────────────────────────── */
+:root { --sw: 260px; --sw-rail: 56px; --th: 56px; }
+
+/* ── sidebar ────────────────────────────────────────────────── */
+.sidebar {
+  position: fixed; left: 0; top: 0;
+  width: var(--sw); height: 100vh;
+  background: var(--surface-elevated);
+  border-right: 1px solid var(--stroke-subtle);
+  z-index: 50;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.sidebar.rail { width: var(--sw-rail); }
+
+.sidebar-brand {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--stroke-subtle);
+  flex: none; display: flex; align-items: center; gap: 0;
+  overflow: hidden; min-height: 56px;
+  transition: padding 0.25s;
+}
+.sidebar-brand img { height: 22px; display: block; flex: none; }
+.sidebar.rail .sidebar-brand { justify-content: center; padding: 14px 0; }
+.sb-wordmark { display: block; }
+.sb-railmark {
+  display: none; flex: none;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--color-brand-500);
+  font-family: var(--font-display); font-weight: 800; font-size: 15px;
+  color: #121212; align-items: center; justify-content: center;
+  letter-spacing: -.02em;
+}
+.sidebar.rail .sb-wordmark { display: none; }
+.sidebar.rail .sb-railmark { display: flex; }
+
+.sidebar-body {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 8px 8px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--stroke-primary) transparent;
+}
+
+/* ── nav ───────────────────────────────────────────────────── */
+.nav-label {
+  display: block;
+  padding: 14px 10px 3px;
+  font-family: var(--font-ui);
+  font-weight: 700; font-size: 9.5px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--color-gray-400);
+  user-select: none;
+  transition: opacity 0.15s, height 0.25s, padding 0.25s;
+  overflow: hidden;
+}
+.nav-label:first-child { padding-top: 6px; }
+
+.nav-link, .nav-toggle {
+  display: flex; align-items: center;
+  padding: 7px 10px; border-radius: 8px;
+  text-decoration: none;
+  font-family: var(--font-ui); font-size: 13px; font-weight: 500;
+  color: var(--text-body);
+  cursor: pointer; border: none; background: transparent;
+  width: 100%; text-align: left;
+  gap: 10px; line-height: 1.35;
+  transition: background 0.12s, color 0.12s, padding 0.25s, gap 0.25s;
+  position: relative;
+}
+.nav-link:hover, .nav-toggle:hover {
+  background: var(--surface-action-secondary-hover);
+  color: var(--text-primary);
+}
+.nav-link.active {
+  background: var(--fill-surface-yellow);
+  color: var(--fill-text-yellow);
+  font-weight: 600;
+}
+.nav-link.active .nav-icon { color: var(--fill-text-yellow); }
+.nav-link.top, .nav-toggle { font-weight: 600; }
+.nav-toggle { justify-content: flex-start; }
+
+/* icon slot */
+.nav-icon {
+  font-size: 18px !important; flex: none;
+  width: 18px; text-align: center;
+  color: var(--color-gray-400);
+  transition: color 0.12s, font-size 0.25s, width 0.25s;
+}
+.nav-link:hover .nav-icon, .nav-toggle:hover .nav-icon { color: var(--text-primary); }
+
+/* text slot */
+.nav-text {
+  flex: 1; overflow: hidden; white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.nav-toggle-end {
+  display: flex; align-items: center; gap: 0;
+  margin-left: auto;
+  transition: opacity 0.15s;
+}
+.nav-chevron {
+  font-size: 16px !important; flex: none;
+  color: var(--color-gray-400);
+  transition: transform 0.2s;
+}
+.nav-toggle[aria-expanded="false"] .nav-chevron { transform: rotate(-90deg); }
+
+/* rail mode */
+.sidebar.rail .nav-label { opacity: 0; height: 2px; padding: 2px 0; pointer-events: none; }
+.sidebar.rail .nav-text { opacity: 0; pointer-events: none; width: 0; }
+.sidebar.rail .nav-toggle-end { opacity: 0; pointer-events: none; width: 0; overflow: hidden; }
+.sidebar.rail .nav-children { max-height: 0 !important; overflow: hidden; }
+.sidebar.rail .nav-link,
+.sidebar.rail .nav-toggle {
+  justify-content: center;
+  padding: 10px 4px;
+  gap: 0;
+  border-radius: 10px;
+}
+.sidebar.rail .nav-icon { font-size: 20px !important; width: 20px; color: var(--text-body); }
+.sidebar.rail .nav-link:hover .nav-icon,
+.sidebar.rail .nav-toggle:hover .nav-icon { color: var(--text-primary); }
+.sidebar.rail .nav-link.active .nav-icon { color: var(--fill-text-yellow); }
+.sidebar.rail .sidebar-body { padding: 8px 4px 40px; }
+
+/* tooltip on rail hover */
+.sidebar.rail .nav-link[title]:hover::after,
+.sidebar.rail .nav-toggle[title]:hover::after {
+  content: attr(title);
+  position: absolute; left: calc(var(--sw-rail) - 4px); top: 50%;
+  transform: translateY(-50%);
+  background: var(--surface-dark); color: var(--text-light);
+  font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+  padding: 5px 10px; border-radius: 6px;
+  white-space: nowrap; z-index: 100;
+  pointer-events: none;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-link.child { padding-left: 28px; font-size: 12px; font-weight: 400; }
+.nav-link.child.active { font-weight: 600; }
+
+.nav-children { overflow: hidden; transition: max-height 0.25s ease; }
+.nav-children.closed { max-height: 0 !important; }
+
+/* ── main wrap ─────────────────────────────────────────────── */
+.main-wrap {
+  margin-left: var(--sw);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  transition: margin-left 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.main-wrap.rail { margin-left: var(--sw-rail); }
+
+/* ── topbar ─────────────────────────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  height: var(--th);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 32px;
+  background: color-mix(in srgb, var(--surface-elevated) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--stroke-subtle);
+}
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 8px; border: none;
+  background: transparent; cursor: pointer;
+  color: var(--text-body);
+  transition: background 0.12s, color 0.12s;
+}
+.icon-btn:hover { background: var(--surface-action-secondary-hover); color: var(--text-primary); }
+.icon-btn .material-symbols-rounded { font-size: 20px; }
+
+.version-badge {
+  font-family: var(--font-ui); font-weight: 700; font-size: 10px;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--fill-surface-yellow); color: var(--fill-text-yellow);
+  letter-spacing: .04em;
+}
+
+/* ── theme toggle ───────────────────────────────────────────── */
+.toggle-wrap { display: flex; align-items: center; gap: 8px; }
+.toggle-icon {
+  font-size: 16px !important; line-height: 1;
+  color: var(--text-body);
+}
+.theme-toggle {
+  position: relative; display: block;
+  width: 44px; height: 24px; border-radius: 12px;
+  background: var(--color-gray-300);
+  border: 1.5px solid var(--stroke-primary);
+  cursor: pointer; padding: 0; flex: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+[data-theme="dark"] .theme-toggle {
+  background: var(--color-gray-700);
+  border-color: var(--color-gray-600);
+}
+.toggle-knob {
+  position: absolute; top: 3px; left: 3px;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--color-gray-600);
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  transition: transform 0.2s, background 0.2s;
+}
+[data-theme="dark"] .toggle-knob {
+  transform: translateX(19px);
+  background: var(--color-brand-500);
+}
+
+/* ── content ─────────────────────────────────────────────────── */
+main { flex: 1; }
+.ds-section { scroll-margin-top: calc(var(--th) + 20px); }
+
+footer {
+  border-top: 1px solid var(--stroke-subtle);
+  padding: 28px 48px;
+  font-family: var(--font-ui); font-size: 11px;
+  color: var(--text-body); letter-spacing: .01em;
+}
+
+/* ── scroll-in animations ─────────────────────────────────── */
+.animate-section {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-section.in-view { opacity: 1; transform: translateY(0); }
+#intro.animate-section   { opacity: 1 !important; transform: none !important; }
+
+/* ── sidebar backdrop ─────────────────────────────────────── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.42);
+  z-index: 49;
+  opacity: 0;
+  transition: opacity 0.28s;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+/* ── tablet 768–1023: icon rail ───────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar { width: var(--sw-rail); }
+  .sidebar .nav-label { opacity: 0; height: 2px; padding: 2px 0; pointer-events: none; }
+  .sidebar .nav-text, .sidebar .nav-toggle-end { opacity: 0; width: 0; pointer-events: none; }
+  .sidebar .nav-children { max-height: 0 !important; overflow: hidden; }
+  .sidebar .nav-link, .sidebar .nav-toggle { justify-content: center; padding: 10px 4px; gap: 0; border-radius: 10px; }
+  .sidebar .nav-icon { font-size: 20px !important; width: 20px; }
+  .sidebar .sb-wordmark { display: none; }
+  .sidebar .sb-railmark { display: flex; }
+  .sidebar .sidebar-body { padding: 8px 4px 40px; }
+  .main-wrap { margin-left: var(--sw-rail); }
+}
+
+/* ── mobile < 768: overlay drawer ────────────────────────── */
+@media (max-width: 767px) {
+  :root { --sw: 285px; }
+
+  .sidebar-backdrop { display: block; pointer-events: none; }
+  .sidebar-backdrop.active { opacity: 1; pointer-events: auto; }
+
+  .sidebar {
+    width: var(--sw) !important;
+    transform: translateX(calc(-1 * var(--sw)));
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: none;
+  }
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 6px 0 40px rgba(0,0,0,.2);
+  }
+  .sidebar .nav-label { opacity: 1 !important; height: auto !important; padding: 14px 10px 3px !important; pointer-events: auto !important; }
+  .sidebar .nav-label:first-child { padding-top: 6px !important; }
+  .sidebar .nav-text { opacity: 1 !important; width: auto !important; pointer-events: auto !important; }
+  .sidebar .nav-toggle-end { opacity: 1 !important; width: auto !important; overflow: visible !important; pointer-events: auto !important; }
+  .sidebar .nav-link,
+  .sidebar .nav-toggle { justify-content: flex-start !important; padding: 7px 10px !important; gap: 10px !important; }
+  .sidebar .nav-icon { font-size: 18px !important; width: 18px !important; }
+  .sidebar .sb-wordmark { display: block !important; }
+  .sidebar .sb-railmark { display: none !important; }
+  .sidebar .sidebar-body { padding: 8px 8px 48px !important; }
+  .sidebar .nav-children { max-height: 2000px !important; overflow: hidden; }
+
+  .main-wrap, .main-wrap.rail { margin-left: 0 !important; }
+  .topbar { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ══════════════════════════════════════════════ -->
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img id="sb-logo" class="sb-wordmark" src="assets/logo-light.svg" alt="LUCAS Design System" style="height: 60px; width: 100px">
+    <span class="sb-railmark">L</span>
+  </div>
+  <div class="sidebar-body">
+
+    <span class="nav-label">Overview</span>
+    <a class="nav-link top" href="#intro" title="Introduction">
+      <span class="material-symbols-rounded nav-icon">home</span>
+      <span class="nav-text">Introduction</span>
+    </a>
+
+    <span class="nav-label">Design Language</span>
+
+    <button class="nav-toggle" aria-expanded="true" data-group="brand" title="Brand">
+      <span class="material-symbols-rounded nav-icon">style</span>
+      <span class="nav-text">Brand</span>
+      <span class="nav-toggle-end"><span class="material-symbols-rounded nav-chevron">expand_more</span></span>
+    </button>
+    <div class="nav-children" id="group-brand">
+      <a class="nav-link child" href="#brand-overview">Overview</a>
+      <a class="nav-link child" href="#brand-voice">Brand Voice</a>
+      <a class="nav-link child" href="#brand-logo">Logo &amp; Icons</a>
+      <a class="nav-link child" href="#brand-lucas">Little Lucas</a>
+    </div>
+
+    <a class="nav-link top" href="#colors" title="Colors">
+      <span class="material-symbols-rounded nav-icon">palette</span>
+      <span class="nav-text">Colors</span>
+    </a>
+    <a class="nav-link top" href="#typography" title="Typography">
+      <span class="material-symbols-rounded nav-icon">text_fields</span>
+      <span class="nav-text">Typography</span>
+    </a>
+    <a class="nav-link top" href="#spacing" title="Spacing">
+      <span class="material-symbols-rounded nav-icon">straighten</span>
+      <span class="nav-text">Spacing</span>
+    </a>
+    <a class="nav-link top" href="#radius" title="Radius">
+      <span class="material-symbols-rounded nav-icon">rounded_corner</span>
+      <span class="nav-text">Radius</span>
+    </a>
+    <a class="nav-link top" href="#effects" title="Effects">
+      <span class="material-symbols-rounded nav-icon">auto_awesome</span>
+      <span class="nav-text">Effects</span>
+    </a>
+
+    <span class="nav-label">Library</span>
+
+    <button class="nav-toggle" aria-expanded="true" data-group="components" title="Components">
+      <span class="material-symbols-rounded nav-icon">widgets</span>
+      <span class="nav-text">Components</span>
+      <span class="nav-toggle-end"><span class="material-symbols-rounded nav-chevron">expand_more</span></span>
+    </button>
+    <div class="nav-children" id="group-components">
+      <a class="nav-link child" href="#comp-accordion">Accordion</a>
+      <a class="nav-link child" href="#comp-answerrow">AnswerRow</a>
+      <a class="nav-link child" href="#comp-avatar">Avatar</a>
+      <a class="nav-link child" href="#comp-bottomsheet">BottomSheet</a>
+      <a class="nav-link child" href="#comp-button">Button</a>
+      <a class="nav-link child" href="#comp-callout">Callout</a>
+      <a class="nav-link child" href="#comp-card">Card</a>
+      <a class="nav-link child" href="#comp-checkbox">Checkbox</a>
+      <a class="nav-link child" href="#comp-chip">Chip</a>
+      <a class="nav-link child" href="#comp-emptystate">EmptyState</a>
+      <a class="nav-link child" href="#comp-headernav">HeaderNav</a>
+      <a class="nav-link child" href="#comp-iconbutton">IconButton</a>
+      <a class="nav-link child" href="#comp-input">Input</a>
+      <a class="nav-link child" href="#comp-mobilefooter">MobileFooter</a>
+      <a class="nav-link child" href="#comp-moduleitem">ModuleItem</a>
+      <a class="nav-link child" href="#comp-paginationdots">PaginationDots</a>
+      <a class="nav-link child" href="#comp-progressbar">ProgressBar</a>
+      <a class="nav-link child" href="#comp-radiobutton">RadioButton</a>
+      <a class="nav-link child" href="#comp-searchbar">SearchBar</a>
+      <a class="nav-link child" href="#comp-skeleton">Skeleton</a>
+      <a class="nav-link child" href="#comp-segmented">SegmentedControl</a>
+      <a class="nav-link child" href="#comp-slider">Slider</a>
+      <a class="nav-link child" href="#comp-stattile">StatTile</a>
+      <a class="nav-link child" href="#comp-statusbadge">StatusBadge</a>
+      <a class="nav-link child" href="#comp-stepper">Stepper</a>
+      <a class="nav-link child" href="#comp-table">Table</a>
+      <a class="nav-link child" href="#comp-tabs">Tabs</a>
+      <a class="nav-link child" href="#comp-toast">Toast</a>
+      <a class="nav-link child" href="#comp-toggle">Toggle</a>
+      <a class="nav-link child" href="#comp-tooltip">Tooltip</a>
+    </div>
+
+    <span class="nav-label">Context</span>
+    <a class="nav-link top" href="#app" title="App">
+      <span class="material-symbols-rounded nav-icon">phone_iphone</span>
+      <span class="nav-text">App</span>
+    </a>
+    <a class="nav-link top" href="#learnings" title="Learnings">
+      <span class="material-symbols-rounded nav-icon">school</span>
+      <span class="nav-text">Learnings</span>
+    </a>
+
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═════════════════════════════════════════════════ -->
+<div class="main-wrap" id="main-wrap">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn" id="sidebar-toggle" title="Toggle sidebar">
+        <span class="material-symbols-rounded" id="sidebar-toggle-icon">left_panel_close</span>
+      </button>
+    </div>
+    <div class="topbar-right">
+      <span class="version-badge">v1.0</span>
+      <div class="toggle-wrap">
+        <span class="material-symbols-rounded toggle-icon">light_mode</span>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <span class="toggle-knob"></span>
+        </button>
+        <span class="material-symbols-rounded toggle-icon">dark_mode</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="root"></main>
+
+  <footer>LUCAS Design System &middot; NFM Lending &middot; Built by Origin &amp; Oak Creative</footer>
+</div>
+
+<!-- ═══ REACT ════════════════════════════════════════════════ -->
+<script src="showcase/Showcase.jsx" type="text/babel"></script>
+<script type="text/babel">
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    React.createElement(window.Showcase, null)
+  );
+</script>
+
+<!-- ═══ CONTROLS ═════════════════════════════════════════════ -->
+<script>
+/* ── theme ── */
+const htmlEl  = document.documentElement;
+const sbLogo  = document.querySelector(".sb-wordmark");
+const themeBtn = document.getElementById("theme-toggle");
+
+function setTheme(dark) {
+  htmlEl.setAttribute("data-theme", dark ? "dark" : "light");
+  if (sbLogo) sbLogo.src = (dark ? window.__resources && window.__resources["logo_dark"] : window.__resources && window.__resources["logo_light"]) || (dark ? "assets/logo-dark.svg" : "assets/logo-light.svg");
+  localStorage.setItem("lucas-mode", dark ? "dark" : "light");
+}
+themeBtn.addEventListener("click", function() {
+  setTheme(htmlEl.getAttribute("data-theme") !== "dark");
+});
+setTheme(localStorage.getItem("lucas-mode") === "dark");
+
+/* ── sidebar collapse ── */
+var sidebar     = document.getElementById("sidebar");
+var mainWrap    = document.getElementById("main-wrap");
+var toggleBtn   = document.getElementById("sidebar-toggle");
+var toggleIcon  = document.getElementById("sidebar-toggle-icon");
+var backdrop    = document.getElementById("sidebar-backdrop");
+var sidebarOpen = true;
+
+function isMobile() { return window.innerWidth < 768; }
+
+function setSidebar(open) {
+  sidebarOpen = open;
+  if (isMobile()) {
+    sidebar.classList.toggle("mobile-open", open);
+    sidebar.classList.remove("rail");
+    mainWrap.classList.remove("rail");
+    backdrop.classList.toggle("active", open);
+    toggleIcon.textContent = open ? "close" : "menu";
+  } else {
+    sidebar.classList.remove("mobile-open");
+    backdrop.classList.remove("active");
+    sidebar.classList.toggle("rail", !open);
+    mainWrap.classList.toggle("rail", !open);
+    toggleIcon.textContent = open ? "left_panel_close" : "left_panel_open";
+    localStorage.setItem("lucas-sidebar", open ? "1" : "0");
+  }
+}
+toggleBtn.addEventListener("click", function() { setSidebar(!sidebarOpen); });
+backdrop.addEventListener("click", function() { setSidebar(false); });
+document.querySelectorAll(".nav-link").forEach(function(a) {
+  a.addEventListener("click", function() { if (isMobile() && sidebarOpen) setSidebar(false); });
+});
+window.addEventListener("resize", function() {
+  if (!isMobile()) {
+    sidebar.classList.remove("mobile-open");
+    backdrop.classList.remove("active");
+    toggleIcon.textContent = sidebarOpen ? "left_panel_close" : "left_panel_open";
+  } else {
+    toggleIcon.textContent = sidebarOpen ? "close" : "menu";
+  }
+});
+if (isMobile()) { setSidebar(false); } else { setSidebar(localStorage.getItem("lucas-sidebar") !== "0"); }
+
+/* ── nav group toggles ── */
+document.querySelectorAll(".nav-toggle").forEach(function(btn) {
+  var grp  = btn.getAttribute("data-group");
+  var kids = document.getElementById("group-" + grp);
+  // initialise open height
+  kids.style.maxHeight = "2000px";
+
+  btn.addEventListener("click", function() {
+    var expanded = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", !expanded);
+    kids.classList.toggle("closed", expanded);
+    if (!expanded) { kids.style.maxHeight = "2000px"; }
+  });
+});
+
+/* ── scroll spy ── */
+var navLinks = document.querySelectorAll(".nav-link[href]");
+
+function spyScroll() {
+  var threshold = 90;
+  var current = "";
+  navLinks.forEach(function(a) {
+    var id = a.getAttribute("href").slice(1);
+    var el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= threshold) { current = id; }
+  });
+  navLinks.forEach(function(a) {
+    var id = a.getAttribute("href").slice(1);
+    a.classList.toggle("active", id === current && current !== "");
+  });
+}
+
+window.addEventListener("scroll", spyScroll, { passive: true });
+setTimeout(spyScroll, 500);
+
+/* ── scroll-triggered entrance animations ── */
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add("in-view"); }
+    });
+  }, { threshold: 0.04, rootMargin: "0px 0px -20px 0px" });
+
+  function watch() {
+    document.querySelectorAll(".ds-section:not([data-anim])").forEach(function(el) {
+      el.setAttribute("data-anim", "1");
+      el.classList.add("animate-section");
+      io.observe(el);
+    });
+  }
+
+  var poll = setInterval(function() {
+    var root = document.getElementById("root");
+    if (root && root.children.length > 0) {
+      clearInterval(poll);
+      watch();
+      new MutationObserver(watch).observe(root, { childList: true, subtree: true });
+    }
+  }, 200);
+})()
+</script>
+<template id="__bundler_thumbnail" data-bg-color="#f9f9f9">
+  <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+    <!-- House shape (Lucas head) -->
+    <rect x="38" y="36" width="44" height="30" rx="4" fill="#FFC000"/>
+    <polygon points="60,10 82,36 38,36" fill="#121212"/>
+    <!-- Eyes -->
+    <rect x="48" y="44" width="8" height="8" rx="2" fill="#121212"/>
+    <rect x="64" y="44" width="8" height="8" rx="2" fill="#121212"/>
+    <!-- Door -->
+    <rect x="54" y="54" width="12" height="12" rx="2" fill="#121212"/>
+  </svg>
+</template>
+</body>
+</html>
